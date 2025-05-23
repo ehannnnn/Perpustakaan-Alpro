@@ -1,12 +1,19 @@
 #include <iostream>
 using namespace std;
 
-struct Mahasiswa{};
-struct Buku{};
+struct Mahasiswa{
+    int NIM;
+    string nama;
+};
+struct Buku{
+    string kode;
+    string judul;
+    string penulis;
+};
 
 //ADMIN
-void inputBuku(){}
-void hapusBuku(){}
+void inputBuku(string kode, string judul, string penulis){}
+void hapusBuku(string kode){}
 void cariMahasiswa(){}
 
 //MAHASISWA
@@ -25,15 +32,36 @@ void menuAdmin(){
         cout << "2. Hapus Buku" << endl;
         cout << "3. Daftar Mahasiswa" << endl;
         cout << "4. Daftar Buku" <<endl;
+        cout << "5. Logout" <<endl;
         cout << "Pilih menu: ";cin >> pilihan;
 
         switch(pilihan){
-            case 1 :
-                cout 
+            case 1:
+                cout << "Masukan Kode Buku: ";cin >> kode;
+                cin.ignore();
+                cout << "Masukan Judul Buku: ";getline(cin,judul);
+                cout << "Masukan Penulis Buku: ";getline(cin, penulis);
+                inputBuku(kode, judul, penulis);
+                break;
+            case 2:
+                cout << "Masukkan ID buku yang ingin dihapus: ";cin >> kode;
+                hapusBuku(kode);
+                break;
+            case 3:
+                cout << "Daftar Mahasiswa: " << endl;
+                cariMahasiswa();
+                break;
+            case 4:
+                cout << "Daftar Buku: " << endl;
+                listBuku();
+                break;
+            case 5:
+                cout << "Anda berhasil Logout." << endl;
+                break;
+            default:
+                cout << "Pilihan tidak ada. Coba lagi." << endl;
         }
-
-        
-    }while(pilihan != 3);
+    }while(pilihan != 5);
 }
 
 void menuMahasiswa(){}
@@ -55,22 +83,24 @@ int main() {
             case 1:
                 cout << "Masukan Username: ";cin >> user;
                 cout << "Masukan Password: ";cin >> pass;
-                if(user != "admin"){
-                    cout << "Username yang anda masukkan salah." << endl;
+                if(user != "admin" && pass != "admin123"){
+                    cout << "Username dan Password yang anda masukkan salah." << endl;
                 }
+                else if(user != "admin"){
+                    cout << "Username yang anda masukkan salah." << endl;
+                } 
                 else if(pass != "admin123"){
                     cout << "Password yang anda masukkan salah." << endl;
-                } 
+                }
                 else{
                     cout << "Login berhasil." << endl;
                     menuAdmin();
                 }
                 break;
             case 2:
-                cout << "Masukan NIM: "; cin >> nim;
+                cout << "Masukan NIM: ";cin >> nim;
                 cin.ignore();
-                cout << "Masukan Nama: ";
-                getline(cin, nama);
+                cout << "Masukan Nama: ";getline(cin, nama);
                 menuMahasiswa();
                 break;
             case 3:
